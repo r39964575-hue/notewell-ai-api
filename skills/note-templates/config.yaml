@@ -1,0 +1,84 @@
+# Note Templates Skill Configuration
+
+# Default model settings
+model: custom-api-deepseek-com/deepseek-chat
+temperature: 0.3
+max_tokens: 1000
+
+# Template settings
+default_template: cbt-soap
+templates_directory: ./templates
+
+# Output formatting
+format: markdown
+include_timestamp: true
+include_session_duration: true
+
+# Clinical settings
+require_review: true  # Always require therapist review before finalizing
+auto_save: false      # Don't auto-save notes
+backup_enabled: true  # Keep backups of generated notes
+
+# HIPAA compliance
+encrypt_notes: true
+retention_days: 7     # How long to keep note drafts
+audit_logging: true
+
+# Integration settings
+webhook_url: ""       # For EHR integration
+api_version: v1
+
+# Specialty defaults
+specialties:
+  cbt:
+    format: soap
+    default_duration: 50
+    common_homework:
+      - thought_records
+      - behavioral_experiments
+      - activity_scheduling
+    
+  trauma:
+    format: dap
+    default_duration: 60
+    common_homework:
+      - grounding_exercises
+      - safety_planning
+      - journaling
+      
+  nutrition:
+    format: soap
+    default_duration: 45
+    common_homework:
+      - food_logs
+      - meal_planning
+      - symptom_tracking
+      
+  yoga_therapy:
+    format: progress_note
+    default_duration: 60
+    common_homework:
+      - practice_sequences
+      - breathwork_exercises
+      - body_scan
+
+# Therapist preferences (can be overridden per user)
+default_preferences:
+  pronouns: they/them
+  next_session_default: 1 week
+  note_style: professional
+  include_assessment_tools: false
+  
+# Quality controls
+min_summary_length: 20  # characters
+max_summary_length: 2000
+required_sections:
+  - subjective
+  - objective
+  - assessment
+  - plan
+  
+# Cost optimization
+enable_cost_tracking: true
+budget_per_user_per_month: 1.00  # $1 max AI cost per user
+notify_on_budget_exceedance: true

@@ -1,0 +1,20 @@
+{
+  "name": "notewell-ai-api",
+  "version": "1.0.0",
+  "description": "NoteWell AI API for Bubble integration",
+  "main": "openclaw-api-server-real.js",
+  "scripts": {
+    "start": "node openclaw-api-server-real.js",
+    "dev": "node openclaw-api-server-real.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["ai", "therapy", "notes", "bubble", "openclaw"],
+  "author": "NoteWell AI",
+  "license": "MIT"
+}

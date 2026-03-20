@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍌 Nano Banana Pro Art Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #ffeb3b, #ff9800);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-size: 2.5em;
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .art-display {
+            background: #fff9c4;
+            border: 3px dashed #ff9800;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.5em;
+            line-height: 1.6;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .prompt-box {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .prompt-label {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .prompt-text {
+            font-size: 1.3em;
+            color: #1b5e20;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .banana-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .banana-item {
+            background: #fff59d;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            font-size: 2em;
+            transition: transform 0.3s;
+        }
+        
+        .banana-item:hover {
+            transform: scale(1.1);
+            background: #ffeb3b;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">🍌 Nano Banana Pro 🍌</h1>
+        <p class="subtitle">AI-Powered Banana Art Generator</p>
+    </div>
+    
+    <div class="container">
+        <div class="prompt-box">
+            <span class="prompt-label">Generated Prompt:</span>
+            <div class="prompt-text">"A tropical banana paradise with monkeys swinging through palm trees"</div>
+        </div>
+        
+        <div class="art-display">
+            <div style="font-size: 3em; margin-bottom: 20px;" class="floating">🍌🐒🌴</div>
+            <pre style="font-family: 'Courier New', monospace; font-size: 1.2em;">
+           __
+          /  \
+         | 🐒 |
+         |🍌🍌|
+          \__/
+            </pre>
+            <div style="margin-top: 20px; font-size: 1.2em;">
+                <div>🌴 Palm Tree 1</div>
+                <div>🌴 Palm Tree 2</div>
+                <div>🍌 Banana Bunch</div>
+                <div>🐒 Monkey Friend</div>
+            </div>
+        </div>
+        
+        <div class="banana-grid">
+            <div class="banana-item">🍌</div>
+            <div class="banana-item">🐒</div>
+            <div class="banana-item">🌴</div>
+            <div class="banana-item">🌞</div>
+            <div class="banana-item">🏝️</div>
+            <div class="banana-item">🌊</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>🎨 Art Details:</h3>
+            <p><strong>Style:</strong> Tropical Paradise</p>
+            <p><strong>Resolution:</strong> 2K (Simulated)</p>
+            <p><strong>Colors:</strong> Yellow, Green, Brown palette</p>
+            <p><strong>Elements:</strong> Monkeys, Bananas, Palm Trees</p>
+            <p><strong>Mood:</strong> Joyful, Playful, Tropical</p>
+        </div>
+        
+        <div class="info-box">
+            <h3>🔄 How It Works:</h3>
+            <p>This is a simulated version of the Nano Banana Pro AI image generator. The real version uses Google's Gemini 3 Pro Image API to create high-quality images from text prompts.</p>
+            <p>To use the real version, you would need a Gemini API key and the actual skill installed.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Generated on: March 18, 2026 | 🍌 Nano Banana Pro Simulation</p>
+        <p>OpenClaw Skill: nano-banana-pro | Version: 1.0.0</p>
+    </div>
+    
+    <script>
+        // Add some interactivity
+        document.querySelectorAll('.banana-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const emoji = this.textContent;
+                alert(`You clicked on: ${emoji}\nAdding more ${emoji} to your banana art!`);
+            });
+        });
+        
+        // Animate title
+        const title = document.querySelector('.title');
+        setInterval(() => {
+            title.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        }, 2000);
+    </script>
+</body>
+</html>

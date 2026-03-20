@@ -1,0 +1,110 @@
+// Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('navLinks').style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements with fade-in class
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission (demo request)
+        document.querySelectorAll('.cta-button').forEach(button => {
+            if (button.textContent.includes('Demo') || button.textContent.includes('demo')) {
+                button.addEventListener('click', function(e) {
+                    if (!this.href || this.href === '#') {
+                        e.preventDefault();
+                        const name = prompt('Enter your name:');
+                        const email = prompt('Enter your email:');
+                        const company = prompt('Enter your company:');
+                        
+                        if (name && email && company) {
+                            alert(`Thank you ${name}! We'll contact you at ${email} to schedule a demo for ${company}.`);
+                            // In a real implementation, you would send this data to your backend
+                            console.log('Demo request:', { name, email, company });
+                        }
+                    }
+                });
+            }
+        });
+
+        // Update stats in dashboard preview (for demo effect)
+        function updateDashboardStats() {
+            const stats = document.querySelectorAll('.stat-value');
+            if (stats.length >= 2) {
+                // Randomize detection rate between 92-96%
+                stats[0].textContent = `${Math.floor(Math.random() * 5) + 92}%`;
+                
+                // Randomize active alerts between 8-15
+                stats[1].textContent = Math.floor(Math.random() * 8) + 8;
+            }
+            
+            const cardValues = document.querySelectorAll('.card-value');
+            if (cardValues.length >= 4) {
+                // Update unauthorized tools (40-55)
+                cardValues[0].textContent = Math.floor(Math.random() * 16) + 40;
+                
+                // Update data exposure risks (5-12)
+                cardValues[1].textContent = Math.floor(Math.random() * 8) + 5;
+                
+                // Update compliance violations (2-6)
+                cardValues[2].textContent = Math.floor(Math.random() * 5) + 2;
+                
+                // Update critical incidents (0-2)
+                cardValues[3].textContent = Math.floor(Math.random() * 3);
+            }
+        }
+
+        // Update stats every 5 seconds for demo effect
+        setInterval(updateDashboardStats, 5000);
+
+        // Initialize stats on load
+        updateDashboardStats();
+    </script>
+</body>
+</html>

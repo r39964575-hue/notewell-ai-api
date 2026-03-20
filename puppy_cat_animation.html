@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puppy and Cat Playing - HTML5 Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .animation-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(to bottom, #87CEEB, #98FB98);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .puppy, .cat, .ball {
+            position: absolute;
+            border-radius: 50%;
+        }
+        .puppy {
+            width: 80px;
+            height: 80px;
+            background: #8B4513;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .puppy::before, .puppy::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            top: 25px;
+        }
+        .puppy::before { left: 20px; }
+        .puppy::after { right: 20px; }
+        .puppy .nose {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: black;
+            border-radius: 50%;
+            top: 40px;
+            left: 35px;
+        }
+        .cat {
+            width: 70px;
+            height: 70px;
+            background: #808080;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .cat::before, .cat::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 5px;
+            background: green;
+            border-radius: 2px;
+            top: 25px;
+        }
+        .cat::before { left: 20px; }
+        .cat::after { right: 20px; }
+        .cat .nose {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #FF69B4;
+            border-radius: 50%;
+            top: 35px;
+            left: 31px;
+        }
+        .ball {
+            width: 30px;
+            height: 30px;
+            background: red;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .grass {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: #228B22;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 5px;
+        }
+        .status {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐶 Puppy and Cat Playing 🐱</h1>
+        <p style="text-align: center; color: #666;">HTML5 Animation - 30 Second Demo</p>
+        
+        <div class="animation-container" id="animationContainer">
+            <div class="grass"></div>
+            <div class="puppy" id="puppy">
+                <div class="nose"></div>
+            </div>
+            <div class="cat" id="cat">
+                <div class="nose"></div>
+            </div>
+            <div class="ball" id="ball"></div>
+        </div>
+        
+        <div class="status" id="status">Click "Start Animation" to begin!</div>
+        
+        <div class="controls">
+            <button onclick="startAnimation()">▶ Start Animation</button>
+            <button onclick="stopAnimation()">⏹ Stop</button>
+            <button onclick="resetAnimation()">↺ Reset</button>
+        </div>
+        
+        <div class="info">
+            <h3>🎬 Video Creation Capability Demo</h3>
+            <p>This HTML5 animation demonstrates that I can:</p>
+            <ul>
+                <li>Create dynamic visual content programmatically</li>
+                <li>Implement smooth animations with JavaScript</li>
+                <li>Generate interactive multimedia experiences</li>
+                <li>Create cross-platform content (works in any browser)</li>
+            </ul>
+            <p><strong>To create actual video files:</strong> Install FFmpeg and use Python/FFmpeg scripts to render frames and encode to MP4.</p>
+        </div>
+    </div>
+
+    <script>
+        let animationId = null;
+        let startTime = null;
+        const duration = 30000; // 30 seconds in milliseconds
+        const container = document.getElementById('animationContainer');
+        const puppy = document.getElementById('puppy');
+        const cat = document.getElementById('cat');
+        const ball = document.getElementById('ball');
+        const status = document.getElementById('status');
+        
+        const containerWidth = container.offsetWidth;
+        const containerHeight = container.offsetHeight;
+        
+        function startAnimation() {
+            if (animationId) return;
+            
+            startTime = Date.now();
+            status.textContent = "Animation running... (30 seconds)";
+            animate();
+        }
+        
+        function stopAnimation() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+                status.textContent = "Animation stopped";
+            }
+        }
+        
+        function resetAnimation() {
+            stopAnimation();
+            puppy.style.left = '100px';
+            puppy.style.top = '200px';
+            cat.style.left = '300px';
+            cat.style.top = '250px';
+            ball.style.left = '500px';
+            ball.style.top = '150px';
+            status.textContent = "Ready to start!";
+        }
+        
+        function animate() {
+            const currentTime = Date.now() - startTime;
+            const progress = Math.min(currentTime / duration, 1);
+            
+            if (progress >= 1) {
+                status.textContent = "Animation complete! 🎉";
+                animationId = null;
+                return;
+            }
+            
+            // Calculate positions based on time
+            const t = progress * Math.PI * 4; // Multiple cycles
+            
+            // Puppy moves in a circular path
+            const puppyX = 100 + 150 * Math.sin(t);
+            const puppyY = 200 + 80 * Math.cos(t * 0.8);
+            
+            // Cat chases puppy with offset
+            const catX = puppyX + 80 * Math.sin(t * 1.5);
+            const catY = puppyY + 60 * Math.cos(t * 1.2);
+            
+            // Ball bounces around
+            const ballX = 400 + 200 * Math.sin(t * 0.7);
+            const ballY = 150 + 100 * Math.abs(Math.cos(t * 1.3));
+            
+            // Apply positions
+            puppy.style.left = `${puppyX}px`;
+            puppy.style.top = `${puppyY}px`;
+            
+            cat.style.left = `${catX}px`;
+            cat.style.top = `${catY}px`;
+            
+            ball.style.left = `${ballX}px`;
+            ball.style.top = `${ballY}px`;
+            
+            // Update status
+            const remaining = Math.ceil((duration - currentTime) / 1000);
+            if (remaining > 0) {
+                status.textContent = `Animation running... ${remaining}s remaining`;
+            }
+            
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        // Initialize positions
+        resetAnimation();
+    </script>
+</body>
+</html>

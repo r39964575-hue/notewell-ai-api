@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel AI Dashboard</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            width: 400px;
+            min-height: 500px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .title {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .status-badge {
+            margin-left: auto;
+            padding: 4px 8px;
+            background: var(--success);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge.inactive {
+            background: var(--gray);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .stat-card.high-risk .stat-value {
+            color: var(--danger);
+        }
+
+        .stat-card.medium-risk .stat-value {
+            color: var(--warning);
+        }
+
+        .stat-card.low-risk .stat-value {
+            color: var(--success);
+        }
+
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .events-list {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .event-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .event-icon.high {
+            background: var(--danger);
+        }
+
+        .event-icon.medium {
+            background: var(--warning);
+        }
+
+        .event-icon.low {
+            background: var(--success);
+        }
+
+        .event-content {
+            flex: 1;
+        }
+
+        .event-tool {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .event-domain {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .event-time {
+            font-size: 0.7rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+
+        .settings-section {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .setting-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-label {
+            font-weight: 500;
+        }
+
+        .setting-description {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        select {
+            padding: 6px 12px;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-light);
+            background: white;
+            color: var(--dark);
+            font-family: inherit;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray);
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--gray-light);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .loading-spinner {
+            border: 3px solid var(--gray-light);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-shield-alt logo"></i>
+            <div class="title">Sentinel AI</div>
+            <div class="status-badge" id="statusBadge">Active</div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading dashboard...</p>
+        </div>
+
+        <div id="dashboard" class="hidden">
+            <div class="stats-grid">
+                <div class="stat-card high-risk">
+                    <div class="stat-value" id="highRiskCount">0</div>
+                    <div class="stat-label">High Risk</div>
+                </div>
+                <div class="stat-card medium-risk">
+                    <div class="stat-value" id="mediumRiskCount">0</div>
+                    <div class="stat-label">Medium Risk</div>
+                </div>
+                <div class="stat-card low-risk">
+                    <div class="stat-value" id="lowRiskCount">0</div>
+                    <div class="stat-label">Low Risk</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalDetections">0</div>
+                    <div class="stat-label">Total Detections</div>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <i class="fas fa-history"></i>
+                <span>Recent Events</span>
+            </div>
+
+            <div class="events-list" id="eventsList">
+                <div class="empty-state" id="emptyEvents">
+                    <i class="fas fa-check-circle"></i>
+                    <p>No AI tool detections yet</p>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+
+            <div class="settings-section">
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Monitoring</div>
+                        <div class="setting-description">Enable AI tool detection</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="monitoringToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Alert Level</div>
+                        <div class="setting-description">Minimum risk level for alerts</div>
+                    </div>
+                    <select id="alertLevel">
+                        <option value="high">High Only</option>
+                        <option value="medium" selected>Medium & High</option>
+                        <option value="low">All Levels</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Auto-block</div>
+                        <div class="setting-description">Block high-risk tools automatically</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoBlockToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="#" class="btn btn-secondary" id="viewAllBtn">
+                    <i class="fas fa-external-link-alt"></i> View Full Dashboard
+                </a>
+                <button class="btn btn-primary" id="clearDataBtn">
+                    <i class="fas fa-trash"></i> Clear Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
