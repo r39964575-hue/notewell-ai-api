@@ -2,19 +2,12 @@ services:
   - type: web
     name: notewell-ai-api
     env: node
-    region: ohio  # or virginia, oregon, frankfurt, singapore
     buildCommand: npm install
     startCommand: npm start
     envVars:
-      - key: PORT
-        value: 3000
-      - key: OPENCLAW_GATEWAY_URL
-        value: http://localhost:18789  # Will need to change if OpenClaw is also deployed
       - key: OPENCLAW_TOKEN
-        sync: false  # Set this in Render dashboard
+        sync: false
+      - key: OPENCLAW_GATEWAY_URL
+        sync: false
     healthCheckPath: /api/health
     autoDeploy: true
-    disk:
-      name: data
-      mountPath: /data
-      sizeGB: 1
