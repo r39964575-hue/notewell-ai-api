@@ -2,8 +2,8 @@
 
 _Learn about the person you're helping. Update this as you go._
 
-- **Name:** Razor
-- **What to call them:** Razor
+- **Name:** Master
+- **What to call them:** Master
 - **Pronouns:** _(optional)_
 - **Timezone:** Eastern (America/New_York)
 - **Notes:**

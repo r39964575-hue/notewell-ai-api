@@ -74,7 +74,7 @@ list_memories() {
     local days=${1:-7}
     echo "Recent memory files (last ${days} days):"
     echo "----------------------------------------"
-    find "$MEMORY_DIR" -name "*.md" -type f -mtime -$days | sort -r | head -20
+    find -L "$MEMORY_DIR" -name "*.md" -type f -mtime -$days | sort -r | head -20
 }
 
 # Update long-term memory with a note
@@ -102,9 +102,9 @@ EOF
 memory_stats() {
     echo "Memory System Stats:"
     echo "-------------------"
-    echo "Total memory files: $(find "$MEMORY_DIR" -name "*.md" -type f | wc -l)"
-    echo "Oldest file: $(find "$MEMORY_DIR" -name "*.md" -type f -printf '%T+ %p\n' | sort | head -1 | cut -d' ' -f2-)"
-    echo "Newest file: $(find "$MEMORY_DIR" -name "*.md" -type f -printf '%T+ %p\n' | sort -r | head -1 | cut -d' ' -f2-)"
+    echo "Total memory files: $(find -L "$MEMORY_DIR" -name "*.md" -type f | wc -l)"
+    echo "Oldest file: $(find -L "$MEMORY_DIR" -name "*.md" -type f -printf '%T+ %p\n' | sort | head -1 | cut -d' ' -f2-)"
+    echo "Newest file: $(find -L "$MEMORY_DIR" -name "*.md" -type f -printf '%T+ %p\n' | sort -r | head -1 | cut -d' ' -f2-)"
     echo "Long-term memory size: $(wc -l < "$LONG_TERM_MEMORY" 2>/dev/null || echo 0) lines"
 }
 

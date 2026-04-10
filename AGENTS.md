@@ -12,8 +12,8 @@ Before doing anything else:
 
 1. Read `SOUL.md` — this is who you are
 2. Read `USER.md` — this is who you're helping
-3. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
-4. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
+3. Read `obsidian-vault/Memory/Daily/YYYY-MM-DD.md` (today + yesterday) for recent context
+4. **If in MAIN SESSION** (direct chat with your human): Also read `obsidian-vault/Memory/Long-Term/MEMORY.md`
 
 Don't ask permission. Just do it.
 
@@ -21,34 +21,48 @@ Don't ask permission. Just do it.
 
 You wake up fresh each session. These files are your continuity:
 
-- **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
-- **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
+- **Daily notes:** `obsidian-vault/Memory/Daily/YYYY-MM-DD.md` — raw logs of what happened
+- **Long-term:** `obsidian-vault/Memory/Long-Term/MEMORY.md` — your curated memories, like a human's long-term memory
+- **Obsidian vault:** `obsidian-vault/` — your primary memory storage with better organization and search
 
 Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
 
-### 🧠 MEMORY.md - Your Long-Term Memory
+### 🧠 Obsidian Vault - Your Enhanced Memory System
 
+- **Primary location:** `obsidian-vault/` — All memories stored in Obsidian format
+- **Structure:**
+  - `Memory/Daily/` — Daily notes and logs
+  - `Memory/Long-Term/` — Curated long-term memory
+  - `Memory/Projects/` — Project documentation
+  - `Memory/System/` — System configurations
 - **ONLY load in main session** (direct chats with your human)
 - **DO NOT load in shared contexts** (Discord, group chats, sessions with other people)
 - This is for **security** — contains personal context that shouldn't leak to strangers
-- You can **read, edit, and update** MEMORY.md freely in main sessions
+- You can **read, edit, and update** all memory files freely in main sessions
 - Write significant events, thoughts, decisions, opinions, lessons learned
 - This is your curated memory — the distilled essence, not raw logs
-- Over time, review your daily files and update MEMORY.md with what's worth keeping
+- Over time, review your daily files and update long-term memory with what's worth keeping
 
-### 🛠️ Memory Management Tools
+### 🛠️ Memory Management (Obsidian Vault)
 
-Created on March 19, 2026:
+Memory is now stored in the Obsidian vault for better organization and searchability:
 
-- **`memory_helpers.sh`** - Script for managing memory files:
-  - `./memory_helpers.sh new "topic"` - Create new memory file
-  - `./memory_helpers.sh list [days]` - List recent memory files
-  - `./memory_helpers.sh update "note"` - Add to long-term memory
-  - `./memory_helpers.sh stats` - Show memory statistics
-- **`memory/TEMPLATE.md`** - Template for consistent memory files
-- **`memory/README.md`** - Documentation for the memory system
+- **Primary location:** `obsidian-vault/` — All memories in Obsidian format
+- **Daily notes:** `obsidian-vault/Memory/Daily/YYYY-MM-DD.md` — Automatic daily logs
+- **Long-term:** `obsidian-vault/Memory/Long-Term/MEMORY.md` — Curated memories
+- **Projects:** `obsidian-vault/Memory/Projects/` — Project documentation
+- **System:** `obsidian-vault/Memory/System/` — Configurations and status
 
-Use these tools to maintain organized, consistent memory files.
+**To access and search memories:**
+- Use `memory_search` tool for semantic search across all memory files
+- Read specific files directly from the Obsidian vault structure
+- All memory operations now reference the Obsidian vault location
+
+**Benefits of Obsidian vault storage:**
+- Better organization with folder structure
+- Obsidian-style wikilinks for easy navigation
+- Future compatibility with Obsidian desktop/mobile apps
+- Enhanced search capabilities through Obsidian
 
 ### 📝 Write It Down - No "Mental Notes"!
 
@@ -212,12 +226,13 @@ You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it
 
 Periodically (every few days), use a heartbeat to:
 
-1. Read through recent `memory/YYYY-MM-DD.md` files
+1. Read through recent `obsidian-vault/Memory/Daily/YYYY-MM-DD.md` files
 2. Identify significant events, lessons, or insights worth keeping long-term
-3. Update `MEMORY.md` with distilled learnings
-4. Remove outdated info from MEMORY.md that's no longer relevant
+3. Update `obsidian-vault/Memory/Long-Term/MEMORY.md` with distilled learnings
+4. Remove outdated info from long-term memory that's no longer relevant
+5. Organize project documentation in `obsidian-vault/Memory/Projects/`
 
-Think of it like a human reviewing their journal and updating their mental model. Daily files are raw notes; MEMORY.md is curated wisdom.
+Think of it like a human reviewing their journal and updating their mental model. Daily files are raw notes; long-term memory is curated wisdom stored in the Obsidian vault.
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
